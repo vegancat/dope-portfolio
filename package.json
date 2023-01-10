@@ -16,12 +16,18 @@
     "@emotion/react": "latest",
     "@emotion/server": "latest",
     "@emotion/styled": "latest",
+    "@livepeer/react": "^2.0.0",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "@next/font": "latest",
+    "@wagmi/core": "^0.8.14",
+    "ethers": "^5.7.2",
+    "lodash": "^4.17.21",
     "next": "latest",
+    "notistack": "^2.0.8",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "wagmi": "^0.10.9"
   },
   "devDependencies": {
     "@types/node": "latest",
