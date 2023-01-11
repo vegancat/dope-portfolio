@@ -6,6 +6,7 @@ import {
   useDisconnect,
   useEnsName,
   useEnsAvatar,
+  useNetwork,
 } from "wagmi";
 import { MetaMaskConnector } from "@wagmi/core/connectors/metaMask";
 import _ from "lodash";
@@ -14,6 +15,7 @@ import { pkShortener } from "../utils/helpers";
 type Props = {};
 
 const Header = (props: Props) => {
+  const { chain } = useNetwork();
   const { address, isConnected, connector } = useAccount();
   const { connect } = useConnect({
     connector: new MetaMaskConnector(),
@@ -36,6 +38,7 @@ const Header = (props: Props) => {
     address,
   });
 
+  // Todo: conditional logos and content for connected chains
   return (
     <Box
       sx={{
