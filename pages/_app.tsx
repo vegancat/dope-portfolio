@@ -17,12 +17,7 @@ import { SnackbarProvider } from "notistack";
 
 const { chains, provider, webSocketProvider } = configureChains(
   [mainnet, goerli, polygon],
-  [
-    alchemyProvider({ apiKey: "WT-uEeVsH8a5IClWZ-4i0gnhiOzyQSk2" }),
-    alchemyProvider({ apiKey: "NYItrtM-yhuM1OxrKHftltRwF0RFJrxl" }),
-    alchemyProvider({ apiKey: "1lWz10kgVkgxAtieME6FBXCArpqkrITN" }),
-    publicProvider(),
-  ]
+  [publicProvider()]
 );
 
 const wagmiClient = createClient({

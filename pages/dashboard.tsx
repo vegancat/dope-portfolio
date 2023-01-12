@@ -4,7 +4,6 @@ import Image from "next/image";
 import _ from "lodash";
 import Link from "next/link";
 import iconBrokenNFTImage from "../public/icon-nft-broken-image.png";
-
 import { useAccount, useNetwork } from "wagmi";
 import {
   Box,
@@ -15,12 +14,14 @@ import {
   SelectChangeEvent,
   Grid,
 } from "@mui/material";
+import { useRouter } from "next/router";
 
 type Props = {};
 
 export default function Dashboard({}: Props) {
   const { chain } = useNetwork();
   const { address } = useAccount();
+  const router = useRouter();
   const [inputAddress, setInputAddress] = useState<string>(
     address ? address : ""
   );
@@ -112,6 +113,12 @@ export default function Dashboard({}: Props) {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                router.push(
+                  `/nft?contractAddress=${nft.contract_address}&tokenId=${nft.token_id}`
+                );
               }}
               key={nft.contract_address + nft.token_id}
               item
@@ -128,6 +135,8 @@ export default function Dashboard({}: Props) {
           );
         })}
       </Grid>
+
+      <Box>recent Activity</Box>
     </Box>
   );
 }
