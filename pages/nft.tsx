@@ -15,6 +15,7 @@ export default function Nft({}: Props) {
   const { address } = useAccount();
   const router = useRouter();
   const [fetchedNftData, setFetchedNftData] = useState<any>({});
+  const [recentActivity, setRecentActivity] = useState<any[]>([]);
 
   const { contractAddress, tokenId } = router.query;
 
@@ -51,6 +52,22 @@ export default function Nft({}: Props) {
     )
       .then((response) => response.json())
       .then((response) => setFetchedNftData(response))
+      .catch((err) => console.error(err));
+
+    const activityOptions = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: "4e02115c-3728-4e97-a0c0-93fd32327b6c",
+      },
+    };
+
+    fetch(
+      `https://api.nftport.xyz/v0/transactions/nfts/${contractAddress}/${tokenId}?chain=${chainNameFormattedForAPI}`,
+      activityOptions
+    )
+      .then((response) => response.json())
+      .then((response) => setRecentActivity(response.transactions))
       .catch((err) => console.error(err));
   }, [chainNameFormattedForAPI, contractAddress, tokenId]);
 
@@ -100,6 +117,11 @@ export default function Nft({}: Props) {
       <Box>{tokenId}</Box>
 
       <Box>Recent Activity</Box>
+      <Box>
+        {recentActivity.map((activity) => {
+          return <Box key={activity.transaction_hash}> place holder </Box>;
+        })}
+      </Box>
     </Box>
   );
 }

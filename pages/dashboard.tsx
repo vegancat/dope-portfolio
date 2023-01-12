@@ -25,8 +25,9 @@ export default function Dashboard({}: Props) {
   const [inputAddress, setInputAddress] = useState<string>(
     address ? address : ""
   );
-  const [searchType, setSearchType] = useState("account");
+  const [searchType, setSearchType] = useState("accounts");
   const [foundNFTs, setFoundNFTs] = useState<any[]>([]);
+  const [recentActivity, setRecentActivity] = useState<any[]>([]);
 
   const handleSearchTypeChange = (event: SelectChangeEvent) => {
     setSearchType(event.target.value as string);
@@ -62,11 +63,27 @@ export default function Dashboard({}: Props) {
     };
 
     fetch(
-      `https://api.nftport.xyz/v0/accounts/${inputAddress}?chain=${chainNameFormattedForAPI}&page_size=15&include=metadata`,
+      `https://api.nftport.xyz/v0/${searchType}/${inputAddress}?chain=${chainNameFormattedForAPI}&page_size=15&include=metadata`,
       options
     )
       .then((response) => response.json())
       .then((response) => setFoundNFTs(response.nfts))
+      .catch((err) => console.error(err));
+
+    const recentActivityOptions = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: "4e02115c-3728-4e97-a0c0-93fd32327b6c",
+      },
+    };
+
+    fetch(
+      `https://api.nftport.xyz/v0/transactions/${searchType}/${inputAddress}?chain=${chainNameFormattedForAPI}&page_size=20&type=all`,
+      recentActivityOptions
+    )
+      .then((response) => response.json())
+      .then((response) => setRecentActivity(response.transactions))
       .catch((err) => console.error(err));
   };
 
@@ -93,8 +110,8 @@ export default function Dashboard({}: Props) {
           label="Account Type"
           onChange={handleSearchTypeChange}
         >
-          <MenuItem value="account">Account</MenuItem>
-          <MenuItem value="collection">NFT Collection</MenuItem>
+          <MenuItem value="accounts">Account</MenuItem>
+          <MenuItem value="nfts">NFT Collection</MenuItem>
         </Select>
         <Button type="submit">Search</Button>
       </Box>
@@ -136,7 +153,11 @@ export default function Dashboard({}: Props) {
         })}
       </Grid>
 
-      <Box>recent Activity</Box>
+      <Box>
+        {recentActivity.map((activity) => {
+          return <Box key={activity.transaction_hash}> place holder </Box>;
+        })}
+      </Box>
     </Box>
   );
 }
