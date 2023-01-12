@@ -11,6 +11,9 @@ import {
 import { MetaMaskConnector } from "@wagmi/core/connectors/metaMask";
 import _ from "lodash";
 import { pkShortener } from "../utils/helpers";
+import Image from "next/image";
+import logo from "../public/icons8-portfolio-64.png";
+import ethIcon from "../public/icons8-ethereum-96.png";
 
 type Props = {};
 
@@ -21,6 +24,16 @@ const Header = (props: Props) => {
     connector: new MetaMaskConnector(),
   });
   const { disconnect } = useDisconnect();
+
+  const chainLogo = useMemo(() => {
+    if (_.isNil(chain)) return;
+
+    if (chain.id === 137) {
+      return "icon-polygon.png";
+    } else {
+      return "icons8-ethereum-96.png";
+    }
+  }, []);
 
   const {
     data: ensName,
@@ -42,14 +55,25 @@ const Header = (props: Props) => {
   return (
     <Box
       sx={{
-        width: "100%",
-        maxWidth: "1200px",
+        maxWidth: "70rem",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        mx: "auto",
+        mb: 4,
       }}
     >
-      <Box sx={{ fontSize: "1.5rem", fontWeight: "bold" }}>Logo</Box>
+      <Box
+        sx={{
+          fontSize: "1.5rem",
+          fontWeight: "bold",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Image src={logo} width={50} height={50} alt="logo" />
+      </Box>
       <Box sx={{ fontSize: "1.5rem", fontWeight: "bold" }}>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           {!isConnected && (
@@ -58,6 +82,7 @@ const Header = (props: Props) => {
                 connect();
               }}
               sx={{ marginRight: "1rem" }}
+              variant="contained"
             >
               Connect
             </Button>
@@ -68,7 +93,7 @@ const Header = (props: Props) => {
                 <Button sx={{ marginRight: "1rem" }}>{ensName}</Button>
               )}
               {_.isNil(ensName) && (
-                <Button sx={{ marginRight: "1rem" }}>
+                <Button sx={{ marginRight: "1rem" }} variant="outlined">
                   {
                     // address is available because we are connected
                   }
@@ -80,10 +105,14 @@ const Header = (props: Props) => {
                 <Avatar sx={{ marginRight: "1rem" }} src={ensAvatar} />
               )}
               {_.isNil(ensAvatar) && (
-                <Avatar sx={{ marginRight: "1rem" }} src="icon-polygon.png" />
+                <Avatar sx={{ marginRight: "1rem" }} src={chainLogo} />
               )}
 
-              <Button onClick={() => disconnect()} sx={{ marginRight: "1rem" }}>
+              <Button
+                variant="contained"
+                onClick={() => disconnect()}
+                sx={{ marginRight: "1rem" }}
+              >
                 Disconnect
               </Button>
             </>
