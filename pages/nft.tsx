@@ -4,9 +4,10 @@ import Image from "next/image";
 import _ from "lodash";
 import Link from "next/link";
 import { useAccount, useNetwork } from "wagmi";
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import iconBrokenNFTImage from "../public/icon-nft-broken-image.png";
+import Activity from "../components/Activity";
 
 type Props = {};
 
@@ -116,10 +117,14 @@ export default function Nft({}: Props) {
       <Box>{nftContractName}</Box>
       <Box>{tokenId}</Box>
 
-      <Box>Recent Activity</Box>
+      <Typography textAlign="center" sx={{ mt: 10, mb: 2 }}>
+        Recent Activities
+      </Typography>
       <Box>
         {recentActivity.map((activity) => {
-          return <Box key={activity.transaction_hash}> place holder </Box>;
+          return (
+            <Activity key={activity.transaction_hash} activity={activity} />
+          );
         })}
       </Box>
     </Box>

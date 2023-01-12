@@ -15,6 +15,8 @@ import {
   Grid,
 } from "@mui/material";
 import { useRouter } from "next/router";
+import Activity from "../components/Activity";
+import Typography from "@mui/material/Typography";
 
 type Props = {};
 
@@ -153,9 +155,14 @@ export default function Dashboard({}: Props) {
         })}
       </Grid>
 
+      <Typography textAlign="center" sx={{ mt: 10, mb: 2 }}>
+        Recent Activities
+      </Typography>
       <Box>
         {recentActivity.map((activity) => {
-          return <Box key={activity.transaction_hash}> place holder </Box>;
+          return (
+            <Activity key={activity.transaction_hash} activity={activity} />
+          );
         })}
       </Box>
     </Box>
