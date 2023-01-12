@@ -114,8 +114,10 @@ export default function Nft({}: Props) {
   return (
     <Box>
       <Box>{image}</Box>
-      <Box>{nftContractName}</Box>
-      <Box>{tokenId}</Box>
+      <Box sx={{ display: "flex", justifyContent: "center", my: 3 }}>
+        <Box sx={{ mx: 2 }}>Collection: {nftContractName}</Box>
+        <Box>Token ID: {tokenId}</Box>
+      </Box>
 
       <Typography textAlign="center" sx={{ mt: 10, mb: 2 }}>
         Recent Activities

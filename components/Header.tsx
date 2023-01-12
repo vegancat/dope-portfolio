@@ -14,6 +14,7 @@ import { pkShortener } from "../utils/helpers";
 import Image from "next/image";
 import logo from "../public/icons8-portfolio-64.png";
 import ethIcon from "../public/icons8-ethereum-96.png";
+import { useRouter } from "next/router";
 
 type Props = {};
 
@@ -24,6 +25,7 @@ const Header = (props: Props) => {
     connector: new MetaMaskConnector(),
   });
   const { disconnect } = useDisconnect();
+  const router = useRouter();
 
   const chainLogo = useMemo(() => {
     if (_.isNil(chain)) return;
@@ -33,7 +35,7 @@ const Header = (props: Props) => {
     } else {
       return "icons8-ethereum-96.png";
     }
-  }, []);
+  }, [chain]);
 
   const {
     data: ensName,
@@ -70,9 +72,16 @@ const Header = (props: Props) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          cursor: "pointer",
         }}
       >
-        <Image src={logo} width={50} height={50} alt="logo" />
+        <Image
+          onClick={() => router.push("/")}
+          src={logo}
+          width={50}
+          height={50}
+          alt="logo"
+        />
       </Box>
       <Box sx={{ fontSize: "1.5rem", fontWeight: "bold" }}>
         <Box sx={{ display: "flex", alignItems: "center" }}>

@@ -6,6 +6,7 @@ import _ from "lodash";
 import { Inter } from "@next/font/google";
 import { useAccount, useNetwork } from "wagmi";
 import { Box } from "@mui/material";
+import mainPic from "../public/icons8-main-pic.png";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,15 +23,23 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {!_.isNil(chain) && (
-        <>
-          <Box>connected to {chain.network + " " + chain.id}</Box>
-          <Box>Home Page</Box>
+        <Box sx={{ maxWidth: "70rem", mx: "auto", textAlign: "center" }}>
+          <Box>Welcome to you dope portfolio!😎</Box>
 
-          <Link href="/dashboard">Dashboard</Link>
-          <Link href="/collection">Collection</Link>
-          <Link href="/explore">Explore</Link>
-          <Link href="/livestream">Live Stream</Link>
-        </>
+          <Box>
+            Go to <Link href="/dashboard">Dashboard</Link> to check it out!
+          </Box>
+
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Image src={mainPic} alt="main pic" width={125} height={125} />
+          </Box>
+        </Box>
       )}
     </>
   );

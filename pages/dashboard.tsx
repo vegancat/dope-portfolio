@@ -115,7 +115,9 @@ export default function Dashboard({}: Props) {
           <MenuItem value="accounts">Account</MenuItem>
           <MenuItem value="nfts">NFT Collection</MenuItem>
         </Select>
-        <Button type="submit">Search</Button>
+        <Button sx={{ mx: 1 }} type="submit" variant="contained">
+          Search
+        </Button>
       </Box>
 
       <Grid sx={{ mt: 3, px: 2 }} container>
@@ -133,6 +135,8 @@ export default function Dashboard({}: Props) {
                 flexDirection: "column",
                 alignItems: "center",
                 cursor: "pointer",
+                p: 1,
+                py: 2,
               }}
               onClick={() => {
                 router.push(
@@ -149,7 +153,7 @@ export default function Dashboard({}: Props) {
                 height={100}
                 alt="NFT picture"
               />
-              <Box>{nft.name}</Box>
+              <Box sx={{ mt: 2 }}>{nft.name}</Box>
             </Grid>
           );
         })}
