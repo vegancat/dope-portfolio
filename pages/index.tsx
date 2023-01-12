@@ -27,6 +27,9 @@ export default function Home() {
           <Box>Home Page</Box>
 
           <Link href="/dashboard">Dashboard</Link>
+          <Link href="/collection">Collection</Link>
+          <Link href="/explore">Explore</Link>
+          <Link href="/livestream">Live Stream</Link>
         </>
       )}
     </>
